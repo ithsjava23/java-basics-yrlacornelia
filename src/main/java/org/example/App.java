@@ -12,12 +12,15 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         int[] prices = new int[24];
         while (true) {
-            System.out.print("Elpriser\n" + "========\n" +
-                    "1. Inmatning\n" +
-                    "2. Min, Max och Medel\n" +
-                    "3. Sortera\n" +
-                    "4. Bästa Laddningstid (4h)\n" +
-                    "e. Avsluta\n");
+            System.out.print("""
+                    Elpriser
+                    ========
+                    1. Inmatning
+                    2. Min, Max och Medel
+                    3. Sortera
+                    4. Bästa Laddningstid (4h)
+                    e. Avsluta
+                    """);
             String val = scanner.next();
 
             if (val.equals("e") || val.equals("E")) {
@@ -34,38 +37,30 @@ public class App {
     public static void chooseOption(String val, int[] prices) {
 
         switch (val) {
-            case "2":
-                minMaxMediumValue(prices);
-                break;
-            case "3":
-                sortValues(prices);
-                break;
-            case "4":
-                cheapest4Hours(prices);
-                break;
-            default:
-                System.out.print("Ogiltigt val");
+            case "2" -> minMaxMediumValue(prices);
+            case "3" -> sortValues(prices);
+            case "4" -> cheapest4Hours(prices);
+            default -> System.out.print("Ogiltigt val");
         }
 
-    };
-    public static int[] input(int[] prices, Scanner scanner) {
+    }
+    public static void input(int[] prices, Scanner scanner) {
         for (int i = 0; i < prices.length; i++) {
             String time = String.format("%02d-%02d", i, i + 1);
             System.out.print("Pris för klockan " + time + ": ");
             int val = Integer.parseInt(scanner.next());
             prices[i] = val;
         }
-        return prices;
     }
 
     public static void minMaxMediumValue(int[] prices) {
         int min = prices[0];
         int max = prices[0];
         int sum = 0;
-        for (int i = 0; i < prices.length; i++) {
-            sum += prices[i];
-            min = Math.min(min, prices[i]);
-            max = Math.max(max, prices[i]);
+        for (int price : prices) {
+            sum += price;
+            min = Math.min(min, price);
+            max = Math.max(max, price);
         }
         String highTime = null;
         String time = null;

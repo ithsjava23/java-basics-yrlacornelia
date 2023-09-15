@@ -3,6 +3,7 @@ package org.example;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class App {
@@ -85,17 +86,28 @@ public class App {
     public static void sortValues(int[] arr) {
         int[] sortedArr = Arrays.copyOf(arr, arr.length);
         Arrays.sort(sortedArr);
+        boolean[] printed = new boolean[arr.length];
         for (int i = arr.length - 1; i >= 0; i--) {
             String time = null;
+            int index = -1;
+
             for (int j = 0; j < arr.length; j++) {
-                if (arr[j] == sortedArr[i]) {
+                if (arr[j] == sortedArr[i] && !printed[j]) {
                     time = String.format("%02d-%02d", j, j + 1);
+                    index = j;
                     break;
                 }
             }
-            System.out.println(time + " " + sortedArr[i] + " öre");
+            if (time != null) {
+                System.out.println(time + " " + sortedArr[i] + " öre");
+                printed[index] = true;
+            }
         }
     }
+
+
+
+
 
 
     public static void cheapest4Hours(int[] arr) {
